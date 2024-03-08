@@ -25,9 +25,9 @@ const LandingPage = () => {
         <div className="w-full pb-6 space-y-6 sm:max-w-md lg:max-w-lg md:space-y-4 lg:space-y-8 xl:space-y-9 sm:pr-5 lg:pr-0 md:pb-0">
           <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-4xl lg:text-5xl xl:text-5xl">
             <span className="block xl:inline">GSoC Github Finder </span>
-            <span className="block text-indigo-600 xl:inline">Find Project Faster.</span>
+            <span className="block text-indigo-600 xl:inline sm:text-3xl md:text-3xl lg:text-4xl">Find Projects Faster.</span>
           </h1>
-          <p className="mx-auto text-base text-gray-500 sm:max-w-md lg:text-xl md:max-w-3xl">Its never been easier to build beautiful websites that convey your message and tell your story.</p>
+          <p className="mx-auto text-base text-gray-500 sm:max-w-md lg:text-xl md:max-w-3xl">Track GSoC organizations, explore their repositories, and find beginner-friendly issues with ease.</p>
           <div className="relative flex flex-col sm:flex-row sm:space-x-4">
             <a href="#_" className="flex items-center w-full px-6 py-3 mb-3 text-lg text-white bg-indigo-600 rounded-md sm:mb-0 hover:bg-indigo-700 sm:w-auto">
               Explore
