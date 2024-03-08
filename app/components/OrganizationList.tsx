@@ -3,7 +3,7 @@ import organizationsData from "../api/data/2024.json"; // Import the JSON data
 
 const OrganizationList = () => {
   return (
-    <div className="antialiased text-slate-300 dark:text-slate-200 bg-slate-900 dark:bg-slate-800 pt-10">
+    <div className="antialiased text-slate-300 dark:text-slate-200 bg-slate-900 dark:bg-slate-900 pt-10">
     <div className="grid max-w-[26rem] sm:max-w-[52.5rem] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mx-auto gap-6 lg:gap-y-8 xl:gap-x-8 lg:max-w-7xl px-4 sm:px-6 lg:px-8">
       {organizationsData.organizations.map((org) => (
         <div
@@ -21,14 +21,14 @@ const OrganizationList = () => {
           </div>
           <h2 className="text-xl font-bold mb-2 mt-2">{org.name}</h2>
           <p className="text-slate-400 mb-2">{org.description}</p>
-          <div className="bg-orange-600 dark:bg-orange-700 rounded-full px-3 py-1 mb-2 text-center">
-            <span className="text-sm">Category: {org.category}</span>
+          <div className="bg-orange-500 dark:bg-orange-500 rounded-full px-3 py-1 mb-4 text-center">
+            <span className="text-sm">{org.category}</span>
           </div>
-          <div className="flex flex-wrap gap-2 mb-2 justify-center">
+          <div className="flex flex-wrap gap-2 mb-5 justify-center">
             {org.technologies.map((tech) => (
               <span
                 key={tech}
-                className="bg-slate-700 dark:bg-slate-600 text-slate-300 dark:text-slate-200 rounded-full px-2 py-1 text-sm"
+                className="bg-yellow-500 dark:bg-yellow-500 text-slate-800 dark:text-slate-800 rounded-full px-2 py-1 text-sm "
               >
                 {tech}
               </span>
