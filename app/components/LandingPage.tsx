@@ -102,7 +102,7 @@ const LandingPage = () => {
                 <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-4xl lg:text-5xl xl:text-5xl">
                   <span className="block xl:inline">GSoC Github Finder </span>
                   <span className="block text-indigo-600 xl:inline sm:text-3xl md:text-3xl lg:text-4xl">
-                    Find Projects Faster.
+                    Find Projects Quickly.
                   </span>
                 </h1>
                 <p className="mx-auto text-base text-gray-500 sm:max-w-md lg:text-xl md:max-w-3xl">
