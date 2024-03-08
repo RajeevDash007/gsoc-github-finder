@@ -2,6 +2,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+1. Fork the Repo
+2. Clone the Repo
+3. run the command "npm install"
+4. run the command "npm run dev"
+
 First, run the development server:
 
 ```bash
