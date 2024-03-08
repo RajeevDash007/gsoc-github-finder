@@ -8,7 +8,7 @@ const OrganizationList = () => {
         {organizationsData.organizations.map((org) => (
           <div key={org.name} className="group relative rounded-3xl bg-slate-50 p-6 dark:bg-slate-800/80 dark:highlight-white/5 hover:bg-slate-100 dark:hover:bg-slate-700/50">
             <div className='aspect-[672/494] relative rounded-md transform overflow-hidden shadow-[0_2px_8px_rgba(15,23,42,0.08)] bg-slate-200 dark:bg-slate-700'>
-              <img src={org.image_url} alt={org.name} fetchpriority="high" width="672" height="494" decoding="async" data-nimg="1" className="absolute inset-0 w-full h-full" />
+              <img src={org.image_url} alt={org.name} width="672" height="494" className="absolute inset-0 w-full h-full" />
             </div>
             <h2 className="text-xl font- mb-2 mt-2">{org.name}</h2>
             <p className="text-gray-400 mb-2">{org.description}</p>
