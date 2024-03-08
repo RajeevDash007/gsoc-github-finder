@@ -8,7 +8,7 @@ const OrganizationList = () => {
       {organizationsData.organizations.map((org) => (
         <div
           key={org.name}
-          className="group relative rounded-xl bg-slate-800/80 dark:bg-slate-700/80 p-6 hover:bg-slate-700 dark:hover:bg-slate-600"
+          className="group relative rounded-xl bg-slate-800/80 dark:bg-slate-700/80 p-6 hover:scale-105"
         >
           <div className="aspect-[672/494] relative rounded-md transform overflow-hidden shadow-[0_2px_8px_rgba(15,23,42,0.08)] bg-slate-700 dark:bg-slate-600">
             <img
