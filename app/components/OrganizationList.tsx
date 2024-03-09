@@ -1,5 +1,6 @@
 import React from "react";
-import organizationsData from "../api/data/2024.json"; // Import the JSON data
+import organizationsData from "../api/data/2024.json"; 
+import Image from "next/image";
 
 const OrganizationList = () => {
   return (
@@ -11,7 +12,7 @@ const OrganizationList = () => {
           className="group relative rounded-xl bg-slate-800/80 dark:bg-slate-700/80 p-6 hover:scale-105"
         >
           <div className="aspect-[672/494] relative rounded-md transform overflow-hidden shadow-[0_2px_8px_rgba(15,23,42,0.08)] bg-slate-700 dark:bg-slate-600">
-            <img
+            <Image
               src={org.image_url}
               alt={org.name}
               width="672"

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 const LandingPage = () => {
@@ -142,7 +143,7 @@ const LandingPage = () => {
             </div>
             <div className="w-full md:w-1/2">
               <div className="w-full h-auto overflow-hidden rounded-md shadow-xl sm:rounded-xl">
-                <img src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20191115191637/How-to-Prepare-For-Google-Summer-of-Code-A-Complete-Guide.png" />
+                <Image src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20191115191637/How-to-Prepare-For-Google-Summer-of-Code-A-Complete-Guide.png" alt="GSoC"/>
               </div>
             </div>
           </div>
