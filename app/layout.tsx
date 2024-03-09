@@ -5,18 +5,19 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "GSoC Github Finder",
-  description: "Track GSoC (Google Summer of Code) organizations, explore their repositories, and find beginner-friendly issues with ease.",
+	title: "GSoC Github Finder",
+	description:
+		"Track GSoC (Google Summer of Code) organizations, explore their repositories, and find beginner-friendly issues with ease.",
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
-  );
+	return (
+		<html lang="en">
+			<body className={`${inter.className} w-full m-h-screen`}>{children}</body>
+		</html>
+	);
 }
