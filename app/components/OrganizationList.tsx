@@ -12,7 +12,7 @@ const OrganizationList = () => {
   const endIndex = (currentPage + 1) * itemsPerPage;
   const displayedOrganizations = organizationsData.organizations.slice(startIndex, endIndex);
 
-  const handlePageChange = ({ selected }) => {
+  const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected);
   };
 
