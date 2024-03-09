@@ -78,7 +78,7 @@ const OrganizationList = () => {
             "border p-2 rounded-full ml-2 hover:bg-slate-800/80 dark:hover:bg-slate-700/80"
           }
           disabledClassName={"pagination__link--disabled"}
-          activeClassName={"pagination__link--active"}
+          activeClassName={"pagination__link--active bg-green-600 px-5 rounded-full"}
         />
       </div>
     </div>
