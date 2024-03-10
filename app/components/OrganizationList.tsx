@@ -1,6 +1,14 @@
 'use client';
 import React, { useState } from 'react';
-import organizationsData from '../api/data/2024.json';
+import organizationsData2016 from '../api/data/2016.json';
+import organizationsData2017 from '../api/data/2017.json';
+import organizationsData2018 from '../api/data/2018.json';
+import organizationsData2019 from '../api/data/2019.json';
+import organizationsData2020 from '../api/data/2020.json';
+import organizationsData2021 from '../api/data/2021.json';
+import organizationsData2022 from '../api/data/2022.json';
+import organizationsData2023 from '../api/data/2023.json';
+import organizationsData2024 from '../api/data/2024.json';
 import ReactPaginate from 'react-paginate';
 import Fuse from 'fuse.js';
 
@@ -9,7 +17,28 @@ const OrganizationList = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const fuse = new Fuse(organizationsData.organizations, {
+  const allOrganizations = [
+    ...organizationsData2024.organizations,
+    ...organizationsData2023.organizations,
+    ...organizationsData2022.organizations,
+    ...organizationsData2021.organizations,
+    ...organizationsData2020.organizations,
+    ...organizationsData2019.organizations,
+    ...organizationsData2018.organizations,
+    ...organizationsData2017.organizations,
+    ...organizationsData2016.organizations,
+  ];
+
+  const uniqueOrganizationNames = new Set();
+const distinctOrganizations = allOrganizations.filter((org) => {
+  if (!uniqueOrganizationNames.has(org.name)) {
+    uniqueOrganizationNames.add(org.name);
+    return true;
+  }
+  return false;
+});
+
+  const fuse = new Fuse(distinctOrganizations,{
     keys: ['name', 'category', 'technologies'],
     includeMatches: true,
   });
@@ -20,7 +49,7 @@ const OrganizationList = () => {
 
   const filteredOrganizations =
     searchQuery === ''
-      ? organizationsData.organizations
+      ? distinctOrganizations
       : fuse.search(searchQuery).map((result) => result.item);
 
   const pageCount = Math.ceil(filteredOrganizations.length / itemsPerPage);
@@ -78,7 +107,7 @@ const OrganizationList = () => {
               </div>
               <div className="flex justify-center">
                 <a
-                  href={org.guide_url || undefined}
+                  href={org.guide_url || org.url ||undefined}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
