@@ -33,7 +33,7 @@ const OrganizationList = () => {
   };
 
   return (
-    <div className="antialiased text-slate-300 dark:text-slate-200 bg-slate-900 dark:bg-slate-900 pt-10">
+    <div className="antialiased text-slate-300 dark:text-slate-200 bg-slate-900 dark:bg-slate-900 pt-10" id="explore-projects">
       <div className="flex justify-center sm:text-6xl md:text-6xl lg:text-6xl mb-10 ">
         <h1>Find Projects</h1>
       </div>
