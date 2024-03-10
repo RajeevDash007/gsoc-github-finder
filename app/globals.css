@@ -6,6 +6,22 @@
   scroll-behavior: smooth;
 }
 
+::-webkit-scrollbar {
+  width: 8px; 
+  background-color: #ada8a8; 
+}
+
+/* Change the color of the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #175ffa; 
+  border-radius: 10px; 
+}
+
+/* Change the color of the scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #213feb; 
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
