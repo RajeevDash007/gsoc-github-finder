@@ -1,16 +1,32 @@
-'use client'
-import React, { useState } from "react";
-import organizationsData from "../api/data/2024.json";
-import ReactPaginate from "react-paginate";
+'use client';
+import React, { useState } from 'react';
+import organizationsData from '../api/data/2024.json';
+import ReactPaginate from 'react-paginate';
+import Fuse from 'fuse.js';
 
 const OrganizationList = () => {
   const itemsPerPage = 9;
   const [currentPage, setCurrentPage] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const pageCount = Math.ceil(organizationsData.organizations.length / itemsPerPage);
+  const fuse = new Fuse(organizationsData.organizations, {
+    keys: ['name', 'category', 'technologies'],
+    includeMatches: true,
+  });
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredOrganizations =
+    searchQuery === ''
+      ? organizationsData.organizations
+      : fuse.search(searchQuery).map((result) => result.item);
+
+  const pageCount = Math.ceil(filteredOrganizations.length / itemsPerPage);
   const startIndex = currentPage * itemsPerPage;
   const endIndex = (currentPage + 1) * itemsPerPage;
-  const displayedOrganizations = organizationsData.organizations.slice(startIndex, endIndex);
+  const displayedOrganizations = filteredOrganizations.slice(startIndex, endIndex);
 
   const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected);
@@ -21,9 +37,18 @@ const OrganizationList = () => {
       <div className="flex justify-center sm:text-6xl md:text-6xl lg:text-6xl mb-10 ">
         <h1>Find Projects</h1>
       </div>
+      <div className="mb-10 flex justify-center">
+        <input
+          type="text"
+          placeholder="Search Projects"
+          value={searchQuery}
+          onChange={handleSearch}
+          className="px-6 py-2 rounded-md bg-slate-700  text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 w-1/3"
+        />
+      </div>
       <div className="grid max-w-[26rem] sm:max-w-[52.5rem] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mx-auto gap-10 lg:gap-y-10 xl:gap-x-8 lg:max-w-7xl px-4 sm:px-6 lg:px-8">
         {displayedOrganizations.map((org) => (
-          <div
+            <div
             key={org.name}
             className="group relative rounded-xl bg-slate-800/80 dark:bg-slate-700/80 p-6 hover:scale-105"
           >
