@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import organizationsData from "../api/data/2024.json";
 import ReactPaginate from "react-paginate";
+import ResponsivePagination from "react-responsive-pagination";
 
 const OrganizationList = () => {
 	const itemsPerPage = 9;
@@ -69,17 +70,27 @@ const OrganizationList = () => {
 					</div>
 				))}
 			</div>
-			<div className="flex mx-3 justify-between md:mx-0 md:justify-center">
-				{/*It hide the page indicator  on mobile screen  */}
+			<div className="flex mx-3 overflow-hidden justify-center mt-10 md:mx-0 md:justify-center">
 				<ReactPaginate
 					previousLabel={"← Previous"}
 					nextLabel={"Next →"}
 					pageCount={pageCount}
+					breakLabel={
+						<div>
+							<div className="flex items-center gap-2 md:hidden">
+								<span>{currentPage === 0 ? 1 : currentPage}</span>
+								<span>of</span>
+								<span>{pageCount}</span>
+							</div>
+
+							<a className="hidden md:flex">...</a>
+						</div>
+					}
+					marginPagesDisplayed={0}
+					pageRangeDisplayed={5}
 					pageClassName="hidden m-2 md:flex md:m-0"
 					onPageChange={handlePageChange}
-					containerClassName={
-						"my-10 flex pagination md:gap-10 md:mt-20 md:mb-20"
-					}
+					containerClassName="pagination flex gap-2 my-5"
 					previousLinkClassName={
 						"border p-2 rounded-full mr-2 hover:bg-slate-800/80 dark:hover:bg-slate-700/80"
 					}
@@ -91,12 +102,6 @@ const OrganizationList = () => {
 						"pagination__link--active bg-green-600 px-5 rounded-full"
 					}
 				/>
-				{/* Add page indicator on mobile but it hides on larger screen */}
-				<div className="flex items-center gap-2 md:hidden">
-					<span>{currentPage}</span>
-					<span>of</span>
-					<span>{pageCount}</span>
-				</div>
 			</div>
 		</div>
 	);
