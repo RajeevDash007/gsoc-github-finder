@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import organizationsData from "../api/data/2024.json";
 import ReactPaginate from "react-paginate";
-import ResponsivePagination from "react-responsive-pagination";
 
 const OrganizationList = () => {
 	const itemsPerPage = 9;
