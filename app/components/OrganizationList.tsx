@@ -130,16 +130,18 @@ const OrganizationList = () => {
           nextLabel={">"}
           pageCount={pageCount}
           onPageChange={handlePageChange}
-          containerClassName={"flex pagination gap-10 mt-20 mb-20"}
+          containerClassName={
+            "flex pagination gap-2 md:gap-10 mt-5 md:mt-20 mb-5 md:mb-20"
+          }
           previousLinkClassName={
-            "border py-2 px-3 rounded-full mr-2 hover:bg-slate-800/80 dark:hover:bg-slate-700/80"
+            "border py-2 px-3 rounded-full mr-2 md:mr-2 hover:bg-slate-800/80 dark:hover:bg-slate-700/80"
           }
           nextLinkClassName={
-            "border py-2 px-3 rounded-full ml-2 hover:bg-slate-800/80 dark:hover:bg-slate-700/80"
+            "border py-2 px-3 rounded-full ml-2 md:ml-2 hover:bg-slate-800/80 dark:hover:bg-slate-700/80"
           }
           disabledClassName={"pagination__link--disabled"}
           activeClassName={
-            "pagination__link--active bg-green-600 px-5 rounded-full"
+            "pagination__link--active bg-green-600 px-3 md:px-5 rounded-full"
           }
         />
       </div>
