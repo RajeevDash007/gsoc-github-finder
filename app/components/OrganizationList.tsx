@@ -16,6 +16,10 @@ const OrganizationList = () => {
   const itemsPerPage = 9;
   const [currentPage, setCurrentPage] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedTechnologies, setSelectedTechnologies] = useState<string[]>(
+    []
+  );
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const allOrganizations = [
     ...organizationsData2024.organizations,
@@ -43,26 +47,67 @@ const OrganizationList = () => {
     includeMatches: true,
   });
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearch = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setSearchQuery(e.target.value);
   };
 
-  const filteredOrganizations =
-    searchQuery === ""
-      ? distinctOrganizations
-      : fuse.search(searchQuery).map((result) => result.item);
+  const handleTechnologyChange = (e: { target: { value: any } }) => {
+    const technology = e.target.value;
+    setSelectedTechnologies((prevSelectedTechnologies: string[]) =>
+      prevSelectedTechnologies.includes(technology)
+        ? prevSelectedTechnologies.filter((t) => t !== technology)
+        : [...prevSelectedTechnologies, technology]
+    );
+  };
+
+  const handleCategoryChange = (e: { target: { value: any } }) => {
+    const category = e.target.value;
+    setSelectedCategories((prevSelectedCategories: string[]) =>
+      prevSelectedCategories.includes(category)
+        ? prevSelectedCategories.filter((c) => c !== category)
+        : [...prevSelectedCategories, category]
+    );
+  };
+
+  const allTechnologies = [
+    ...new Set(distinctOrganizations.flatMap((org) => org.technologies)),
+  ] as string[];
+  const allCategories = [
+    ...new Set(distinctOrganizations.map((org) => org.category)),
+  ] as string[];
+
+  const filteredOrganizations = distinctOrganizations.filter((org) => {
+    const matchesSearch =
+      searchQuery === "" ||
+      fuse
+        .search(searchQuery)
+        .map((result) => result.item)
+        .includes(org);
+
+    const matchesTechnologies =
+      selectedTechnologies.length === 0 ||
+      selectedTechnologies.some((tech) => org.technologies.includes(tech));
+
+    const matchesCategories =
+      selectedCategories.length === 0 ||
+      selectedCategories.includes(org.category);
+
+    return matchesSearch && matchesTechnologies && matchesCategories;
+  });
 
   const pageCount = Math.ceil(filteredOrganizations.length / itemsPerPage);
   const startIndex = currentPage * itemsPerPage;
   const endIndex = (currentPage + 1) * itemsPerPage;
+  const handlePageChange = ({ selected }: { selected: number }) => {
+    setCurrentPage(selected);
+  };
+
   const displayedOrganizations = filteredOrganizations.slice(
     startIndex,
     endIndex
   );
-
-  const handlePageChange = ({ selected }: { selected: number }) => {
-    setCurrentPage(selected);
-  };
 
   return (
     <div
@@ -80,6 +125,38 @@ const OrganizationList = () => {
           onChange={handleSearch}
           className="px-6 py-2 rounded-md bg-slate-700  text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 w-1/3"
         />
+      </div>
+      <div className="mb-10 flex justify-center">
+        <div>
+          <h3 className="mb-2">Technologies:</h3>
+          <select
+            multiple
+            value={selectedTechnologies}
+            onChange={handleTechnologyChange}
+            className="px-4 py-2 rounded-md bg-slate-700 text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            {allTechnologies.map((tech: string) => (
+              <option key={tech} value={tech}>
+                {tech}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="ml-5">
+          <h3 className="mb-2">Categories:</h3>
+          <select
+            multiple
+            value={selectedCategories}
+            onChange={handleCategoryChange}
+            className="px-4 py-2 rounded-md bg-slate-700 text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            {allCategories.map((category: string) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <div className="grid max-w-[26rem] sm:max-w-[52.5rem] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mx-auto gap-10 lg:gap-y-10 xl:gap-x-8 lg:max-w-7xl px-4 sm:px-6 lg:px-8">
         {displayedOrganizations.map((org) => (
