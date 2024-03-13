@@ -12,6 +12,7 @@ import organizationsData2024 from "../api/data/2024.json";
 import ReactPaginate from "react-paginate";
 import Fuse from "fuse.js";
 
+
 const OrganizationList = () => {
   const itemsPerPage = 9;
   const [currentPage, setCurrentPage] = useState(0);
@@ -123,7 +124,7 @@ const OrganizationList = () => {
           placeholder="Search Projects"
           value={searchQuery}
           onChange={handleSearch}
-          className="px-6 py-2 rounded-md bg-slate-700  text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 w-1/3"
+          className="px-6 py-2 rounded-md bg-slate-700  text-slate-300 focus:outline-none focus:ring-2 focus:ring-green-500 w-1/3"
         />
       </div>
       <div className="mb-10 flex justify-center">
@@ -133,7 +134,7 @@ const OrganizationList = () => {
             multiple
             value={selectedTechnologies}
             onChange={handleTechnologyChange}
-            className="px-4 py-2 rounded-md bg-slate-700 text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 rounded-md bg-slate-700 text-slate-300 focus:outline-none focus:ring-2 focus:ring-green-500"
           >
             {allTechnologies.map((tech: string) => (
               <option key={tech} value={tech}>
@@ -148,7 +149,7 @@ const OrganizationList = () => {
             multiple
             value={selectedCategories}
             onChange={handleCategoryChange}
-            className="px-4 py-2 rounded-md bg-slate-700 text-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 rounded-md bg-slate-700 text-slate-300 focus:outline-none focus:ring-2 focus:ring-green-500"
           >
             {allCategories.map((category: string) => (
               <option key={category} value={category}>
