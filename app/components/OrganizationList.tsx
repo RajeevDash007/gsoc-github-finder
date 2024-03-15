@@ -10,8 +10,13 @@ import organizationsData2022 from "../api/data/2022.json";
 import organizationsData2023 from "../api/data/2023.json";
 import organizationsData2024 from "../api/data/2024.json";
 import ReactPaginate from "react-paginate";
+import Select, { ActionMeta, MultiValue } from "react-select";
 import Fuse from "fuse.js";
 
+type OptionType = {
+  value: string;
+  label: string;
+};
 
 const OrganizationList = () => {
   const itemsPerPage = 9;
@@ -54,22 +59,20 @@ const OrganizationList = () => {
     setSearchQuery(e.target.value);
   };
 
-  const handleTechnologyChange = (e: { target: { value: any } }) => {
-    const technology = e.target.value;
-    setSelectedTechnologies((prevSelectedTechnologies: string[]) =>
-      prevSelectedTechnologies.includes(technology)
-        ? prevSelectedTechnologies.filter((t) => t !== technology)
-        : [...prevSelectedTechnologies, technology]
-    );
+  const handleTechnologyChange = (
+    newValue: MultiValue<OptionType>,
+    actionMeta: ActionMeta<OptionType>
+  ) => {
+    const technologies = newValue.map((option) => option.value);
+    setSelectedTechnologies(technologies);
   };
 
-  const handleCategoryChange = (e: { target: { value: any } }) => {
-    const category = e.target.value;
-    setSelectedCategories((prevSelectedCategories: string[]) =>
-      prevSelectedCategories.includes(category)
-        ? prevSelectedCategories.filter((c) => c !== category)
-        : [...prevSelectedCategories, category]
-    );
+  const handleCategoryChange = (
+    newValue: MultiValue<OptionType>,
+    actionMeta: ActionMeta<OptionType>
+  ) => {
+    const categories = newValue.map((option) => option.value);
+    setSelectedCategories(categories);
   };
 
   const allTechnologies = [
@@ -78,6 +81,16 @@ const OrganizationList = () => {
   const allCategories = [
     ...new Set(distinctOrganizations.map((org) => org.category)),
   ] as string[];
+
+  const technologyOptions: OptionType[] = allTechnologies.map((tech) => ({
+    value: tech,
+    label: tech,
+  }));
+
+  const categoryOptions: OptionType[] = allCategories.map((category) => ({
+    value: category,
+    label: category,
+  }));
 
   const filteredOrganizations = distinctOrganizations.filter((org) => {
     const matchesSearch =
@@ -118,47 +131,44 @@ const OrganizationList = () => {
       <div className="flex justify-center sm:text-6xl md:text-6xl lg:text-6xl mb-10 ">
         <h1>Find Projects</h1>
       </div>
-      <div className="mb-10 flex justify-center">
+      <div className="flex flex-col md:flex-row justify-center gap-4 mb-10 px-20">
         <input
           type="text"
           placeholder="Search Projects"
           value={searchQuery}
           onChange={handleSearch}
-          className="px-6 py-2 rounded-md bg-slate-700  text-slate-300 focus:outline-none focus:ring-2 focus:ring-green-500 w-1/3"
+          className="px-6 py-2 rounded-md bg-slate-700 text-slate-300 focus:outline-none focus:ring-2 focus:ring-green-500 w-full md:w-1/3 h-10"
         />
-      </div>
-      <div className="mb-10 flex justify-center">
-        <div>
-          <h3 className="mb-2">Technologies:</h3>
-          <select
-            multiple
-            value={selectedTechnologies}
-            onChange={handleTechnologyChange}
-            className="px-4 py-2 rounded-md bg-slate-700 text-slate-300 focus:outline-none focus:ring-2 focus:ring-green-500"
-          >
-            {allTechnologies.map((tech: string) => (
-              <option key={tech} value={tech}>
-                {tech}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="ml-5">
-          <h3 className="mb-2">Categories:</h3>
-          <select
-            multiple
-            value={selectedCategories}
-            onChange={handleCategoryChange}
-            className="px-4 py-2 rounded-md bg-slate-700 text-slate-300 focus:outline-none focus:ring-2 focus:ring-green-500"
-          >
-            {allCategories.map((category: string) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
+        <div className="flex flex-col md:flex-row justify-center gap-4 w-full md:w-2/3">
+          <div className="w-full">
+            <Select
+              isMulti
+              options={technologyOptions}
+              className="text-black"
+              classNamePrefix="select"
+              onChange={handleTechnologyChange}
+              value={technologyOptions.filter((option) =>
+                selectedTechnologies.includes(option.value)
+              )}
+              placeholder="Select Technology"
+            />
+          </div>
+          <div className="w-full">
+            <Select
+              isMulti
+              options={categoryOptions}
+              className="text-black"
+              classNamePrefix="select"
+              onChange={handleCategoryChange}
+              value={categoryOptions.filter((option) =>
+                selectedCategories.includes(option.value)
+              )}
+              placeholder="Select Category"
+            />
+          </div>
         </div>
       </div>
+
       <div className="grid max-w-[26rem] sm:max-w-[52.5rem] grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 mx-auto gap-10 lg:gap-y-10 xl:gap-x-8 lg:max-w-7xl px-4 sm:px-6 lg:px-8">
         {displayedOrganizations.map((org) => (
           <div
