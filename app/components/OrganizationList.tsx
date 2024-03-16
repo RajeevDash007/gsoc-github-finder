@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import organizationsData2016 from "../api/data/2016.json";
 import organizationsData2017 from "../api/data/2017.json";
 import organizationsData2018 from "../api/data/2018.json";
@@ -22,10 +22,9 @@ const OrganizationList = () => {
   const itemsPerPage = 9;
   const [currentPage, setCurrentPage] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedTechnologies, setSelectedTechnologies] = useState<string[]>(
-    []
-  );
+  const [selectedTechnologies, setSelectedTechnologies] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [lastInput, setLastInput] = useState<"search" | "filter" | "">("");
 
   const allOrganizations = [
     ...organizationsData2024.organizations,
@@ -39,24 +38,14 @@ const OrganizationList = () => {
     ...organizationsData2016.organizations,
   ];
 
-  const uniqueOrganizationNames = new Set();
-  const distinctOrganizations = allOrganizations.filter((org) => {
-    if (!uniqueOrganizationNames.has(org.name)) {
-      uniqueOrganizationNames.add(org.name);
-      return true;
-    }
-    return false;
-  });
-
-  const fuse = new Fuse(distinctOrganizations, {
-    keys: ["name", "category", "technologies"],
+  const fuse = new Fuse(allOrganizations, {
+    keys: ["name","technologies","category"],
     includeMatches: true,
   });
 
-  const handleSearch = (e: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
+    setLastInput("search");
   };
 
   const handleTechnologyChange = (
@@ -65,6 +54,7 @@ const OrganizationList = () => {
   ) => {
     const technologies = newValue.map((option) => option.value);
     setSelectedTechnologies(technologies);
+    setLastInput("filter");
   };
 
   const handleCategoryChange = (
@@ -73,13 +63,14 @@ const OrganizationList = () => {
   ) => {
     const categories = newValue.map((option) => option.value);
     setSelectedCategories(categories);
+    setLastInput("filter");
   };
 
   const allTechnologies = [
-    ...new Set(distinctOrganizations.flatMap((org) => org.technologies)),
+    ...new Set(allOrganizations.flatMap((org) => org.technologies)),
   ] as string[];
   const allCategories = [
-    ...new Set(distinctOrganizations.map((org) => org.category)),
+    ...new Set(allOrganizations.map((org) => org.category)),
   ] as string[];
 
   const technologyOptions: OptionType[] = allTechnologies.map((tech) => ({
@@ -92,43 +83,45 @@ const OrganizationList = () => {
     label: category,
   }));
 
-  const filteredOrganizations = distinctOrganizations.filter((org) => {
-    const matchesSearch =
-      searchQuery === "" ||
-      fuse
-        .search(searchQuery)
-        .map((result) => result.item)
-        .includes(org);
-
-    const matchesTechnologies =
-      selectedTechnologies.length === 0 ||
-      selectedTechnologies.some((tech) => org.technologies.includes(tech));
-
-    const matchesCategories =
-      selectedCategories.length === 0 ||
-      selectedCategories.includes(org.category);
-
-    return matchesSearch && matchesTechnologies && matchesCategories;
-  });
+  const getFilteredOrganizations = () => {
+    let result = allOrganizations;
+  
+    if (lastInput === "search" && searchQuery) {
+      result = fuse.search(searchQuery).map((result) => result.item);
+    } else if (lastInput === "filter") {
+      result = result.filter((org) => {
+        const matchesTechnologies =
+          selectedTechnologies.length === 0 ||
+          selectedTechnologies.some((tech) => org.technologies.includes(tech));
+        const matchesCategories =
+          selectedCategories.length === 0 ||
+          selectedCategories.includes(org.category);
+        return matchesTechnologies && matchesCategories;
+      });
+    }
+  
+    // Eliminate duplicates based on organization name
+    const uniqueOrganizations = Array.from(new Map(result.map(org => [org.name, org])).values());
+  
+    return uniqueOrganizations;
+  };
+  
+  const filteredOrganizations = getFilteredOrganizations();
 
   const pageCount = Math.ceil(filteredOrganizations.length / itemsPerPage);
   const startIndex = currentPage * itemsPerPage;
-  const endIndex = (currentPage + 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const displayedOrganizations = filteredOrganizations.slice(startIndex, endIndex);
+
   const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected);
   };
-
-  const displayedOrganizations = filteredOrganizations.slice(
-    startIndex,
-    endIndex
-  );
-
   return (
     <div
       className="antialiased text-slate-300 dark:text-slate-200 bg-slate-900 dark:bg-slate-900 pt-10"
       id="explore-projects"
     >
-      <div className="flex justify-center sm:text-6xl md:text-6xl lg:text-6xl mb-10 ">
+      <div className="flex justify-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-10">
         <h1>Find Projects</h1>
       </div>
       <div className="flex flex-col md:flex-row justify-center gap-4 mb-10 px-20">
