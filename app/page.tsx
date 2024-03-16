@@ -1,3 +1,4 @@
+import Footer from './components/Footer';
 import LandingPage from './components/LandingPage';
 import OrganizationList from './components/OrganizationList';
 
@@ -6,6 +7,7 @@ export default function Home() {
     <div>
       <LandingPage />
       <OrganizationList />
+      <Footer/>
     </div>
   );
 }

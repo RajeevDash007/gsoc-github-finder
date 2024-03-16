@@ -20,6 +20,7 @@
     "react-dom": "^18",
     "react-paginate": "^8.2.0",
     "react-select": "^5.8.0",
+    "react-social-icons": "^6.15.0",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {
