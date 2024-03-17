@@ -12,6 +12,7 @@ import organizationsData2024 from "../api/data/2024.json";
 import ReactPaginate from "react-paginate";
 import Select, { ActionMeta, MultiValue } from "react-select";
 import Fuse from "fuse.js";
+import MostListed from "./MostListed";
 
 type OptionType = {
   value: string;
@@ -37,6 +38,19 @@ const OrganizationList = () => {
     ...organizationsData2017.organizations,
     ...organizationsData2016.organizations,
   ];
+
+  const organizationData = [
+    { year: '2016', data: organizationsData2016 },
+    { year: '2017', data: organizationsData2017 },
+    { year: '2018', data: organizationsData2018 },
+    { year: '2019', data: organizationsData2019 },
+    { year: '2020', data: organizationsData2020 },
+    { year: '2021', data: organizationsData2021 },
+    { year: '2022', data: organizationsData2022 },
+    { year: '2023', data: organizationsData2023 },
+    { year: '2024', data: organizationsData2024 },
+  ];
+
 
   const fuse = new Fuse(allOrganizations, {
     keys: ["name","technologies","category"],
@@ -226,7 +240,12 @@ const OrganizationList = () => {
           }
         />
       </div>
+      <div className="flex justify-center">
+      <MostListed organizationData={organizationData} />
+      </div>
     </div>
+
+
   );
 };
 
