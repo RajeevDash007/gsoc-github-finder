@@ -23,7 +23,9 @@ const OrganizationList = () => {
   const itemsPerPage = 9;
   const [currentPage, setCurrentPage] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedTechnologies, setSelectedTechnologies] = useState<string[]>([]);
+  const [selectedTechnologies, setSelectedTechnologies] = useState<string[]>(
+    []
+  );
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [lastInput, setLastInput] = useState<"search" | "filter" | "">("");
 
@@ -40,20 +42,19 @@ const OrganizationList = () => {
   ];
 
   const organizationData = [
-    { year: '2016', data: organizationsData2016 },
-    { year: '2017', data: organizationsData2017 },
-    { year: '2018', data: organizationsData2018 },
-    { year: '2019', data: organizationsData2019 },
-    { year: '2020', data: organizationsData2020 },
-    { year: '2021', data: organizationsData2021 },
-    { year: '2022', data: organizationsData2022 },
-    { year: '2023', data: organizationsData2023 },
-    { year: '2024', data: organizationsData2024 },
+    { year: "2016", data: organizationsData2016 },
+    { year: "2017", data: organizationsData2017 },
+    { year: "2018", data: organizationsData2018 },
+    { year: "2019", data: organizationsData2019 },
+    { year: "2020", data: organizationsData2020 },
+    { year: "2021", data: organizationsData2021 },
+    { year: "2022", data: organizationsData2022 },
+    { year: "2023", data: organizationsData2023 },
+    { year: "2024", data: organizationsData2024 },
   ];
 
-
   const fuse = new Fuse(allOrganizations, {
-    keys: ["name","technologies","category"],
+    keys: ["name", "technologies", "category"],
     includeMatches: true,
   });
 
@@ -99,7 +100,7 @@ const OrganizationList = () => {
 
   const getFilteredOrganizations = () => {
     let result = allOrganizations;
-  
+
     if (lastInput === "search" && searchQuery) {
       result = fuse.search(searchQuery).map((result) => result.item);
     } else if (lastInput === "filter") {
@@ -113,19 +114,24 @@ const OrganizationList = () => {
         return matchesTechnologies && matchesCategories;
       });
     }
-  
+
     // Eliminate duplicates based on organization name
-    const uniqueOrganizations = Array.from(new Map(result.map(org => [org.name, org])).values());
-  
+    const uniqueOrganizations = Array.from(
+      new Map(result.map((org) => [org.name, org])).values()
+    );
+
     return uniqueOrganizations;
   };
-  
+
   const filteredOrganizations = getFilteredOrganizations();
 
   const pageCount = Math.ceil(filteredOrganizations.length / itemsPerPage);
   const startIndex = currentPage * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const displayedOrganizations = filteredOrganizations.slice(startIndex, endIndex);
+  const displayedOrganizations = filteredOrganizations.slice(
+    startIndex,
+    endIndex
+  );
 
   const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected);
@@ -241,11 +247,9 @@ const OrganizationList = () => {
         />
       </div>
       <div className="flex justify-center">
-      <MostListed organizationData={organizationData} />
+        <MostListed organizationData={organizationData} />
       </div>
     </div>
-
-
   );
 };
 

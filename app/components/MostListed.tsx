@@ -1,5 +1,5 @@
-'use client'
-import React, { useState } from 'react';
+"use client";
+import React, { useState } from "react";
 
 type Organization = {
   name: string;
@@ -27,7 +27,7 @@ const MostListed: React.FC<Props> = ({ organizationData }) => {
   const getMostListedCompanies = () => {
     const organizationCounts: { [key: string]: number } = {};
     const organizationYears: { [key: string]: string[] } = {};
-    
+
     organizationData.forEach(({ year, data }) => {
       data.organizations.forEach((org) => {
         if (!organizationCounts[org.name]) {
@@ -46,10 +46,11 @@ const MostListed: React.FC<Props> = ({ organizationData }) => {
       .map(([name, count]) => ({
         name,
         count,
-        years: organizationYears[name].join(', '),
-        url: organizationData
-          .flatMap(({ data }) => data.organizations)
-          .find((org) => org.name === name)?.url || 'N/A',
+        years: organizationYears[name].join(", "),
+        url:
+          organizationData
+            .flatMap(({ data }) => data.organizations)
+            .find((org) => org.name === name)?.url || "N/A",
       }))
       .sort((a, b) => b.count - a.count);
   };
@@ -57,14 +58,19 @@ const MostListed: React.FC<Props> = ({ organizationData }) => {
   const mostListedCompanies = getMostListedCompanies();
   const indexOfLastCompany = currentPage * companiesPerPage;
   const indexOfFirstCompany = indexOfLastCompany - companiesPerPage;
-  const currentCompanies = mostListedCompanies.slice(indexOfFirstCompany, indexOfLastCompany);
+  const currentCompanies = mostListedCompanies.slice(
+    indexOfFirstCompany,
+    indexOfLastCompany
+  );
 
   // Change page
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
     <div className="most-listed-companies-section bg-white rounded-lg overflow-hidden my-8 w-5/6 shadow-2xl shadow-blue-500/50">
-      <h2 className="text-2xl font-semibold text-gray-800 py-5 px-6">Most Listed Companies</h2>
+      <h2 className="text-2xl font-semibold text-gray-800 py-5 px-6">
+        Most Listed Companies
+      </h2>
       <div className="overflow-x-auto">
         <table className="min-w-full leading-normal">
           <thead>
@@ -95,16 +101,21 @@ const MostListed: React.FC<Props> = ({ organizationData }) => {
                 <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-green-600">
                   {company.years}
                 </td>
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <a href={company.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-900 hover:underline">
-                      {company.url}
-                    </a>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <div className="px-5 py-3 flex justify-between items-center">
+                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <a
+                    href={company.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:text-blue-900 hover:underline"
+                  >
+                    {company.url}
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="px-5 py-3 flex justify-between items-center">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             onClick={() => paginate(currentPage - 1)}
@@ -120,9 +131,9 @@ const MostListed: React.FC<Props> = ({ organizationData }) => {
             Next
           </button>
         </div>
-        </div>
       </div>
-    );
-  };
-  
-  export default MostListed;
+    </div>
+  );
+};
+
+export default MostListed;
