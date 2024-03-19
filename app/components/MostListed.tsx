@@ -21,9 +21,11 @@ type Props = {
 
 const MostListed: React.FC<Props> = ({ organizationData }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const companiesPerPage = 10;
+  const defaultCompaniesPerPage = 10;
 
-  // Function to calculate the most listed companies
+  const [searchTerm, setSearchTerm] = useState("");
+  const companiesPerPage = searchTerm ? 50 : defaultCompaniesPerPage;
+
   const getMostListedCompanies = () => {
     const organizationCounts: { [key: string]: number } = {};
     const organizationYears: { [key: string]: string[] } = {};
@@ -63,13 +65,24 @@ const MostListed: React.FC<Props> = ({ organizationData }) => {
     indexOfLastCompany
   );
 
-  // Change page
+  const filteredCompanies = mostListedCompanies.filter((company) =>
+    company.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
     <div className="most-listed-companies-section bg-white rounded-lg overflow-hidden my-8 w-5/6 shadow-2xl shadow-blue-500/50">
-      <h2 className="text-2xl font-semibold text-gray-800 py-5 px-6">
-        Most Listed Companies
+      <h2 className="text-2xl font-semibold text-gray-800 py-5 px-6 flex justify-between items-center">
+        Most Listed Organizations
+        <input
+          type="text"
+          placeholder="Search by organization name"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="px-3 py-2 border border-gray-300 rounded-md text-blue-500"
+          style={{ marginLeft: "10px", fontSize: "15px" }}
+        />
       </h2>
       <div className="overflow-x-auto">
         <table className="min-w-full leading-normal">
@@ -90,29 +103,34 @@ const MostListed: React.FC<Props> = ({ organizationData }) => {
             </tr>
           </thead>
           <tbody>
-            {currentCompanies.map((company, index) => (
-              <tr key={index} className="hover:bg-gray-100">
-                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-red-400">
-                  {(currentPage - 1) * companiesPerPage + index + 1}
-                </td>
-                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-black">
-                  {company.name}
-                </td>
-                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-green-600">
-                  {company.years}
-                </td>
-                <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                  <a
-                    href={company.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-500 hover:text-blue-900 hover:underline"
-                  >
-                    {company.url}
-                  </a>
-                </td>
-              </tr>
-            ))}
+            {filteredCompanies
+              .slice(
+                (currentPage - 1) * companiesPerPage,
+                currentPage * companiesPerPage
+              )
+              .map((company, index) => (
+                <tr key={index} className="hover:bg-gray-100">
+                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-red-400">
+                    {(currentPage - 1) * companiesPerPage + index + 1}
+                  </td>
+                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-black">
+                    {company.name}
+                  </td>
+                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-green-600">
+                    {company.years}
+                  </td>
+                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                    <a
+                      href={company.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-500 hover:text-blue-900 hover:underline"
+                    >
+                      {company.url}
+                    </a>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
         <div className="px-5 py-3 flex justify-between items-center">
@@ -126,7 +144,7 @@ const MostListed: React.FC<Props> = ({ organizationData }) => {
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             onClick={() => paginate(currentPage + 1)}
-            disabled={indexOfLastCompany >= mostListedCompanies.length}
+            disabled={indexOfLastCompany >= filteredCompanies.length}
           >
             Next
           </button>
