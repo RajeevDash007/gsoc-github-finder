@@ -3,34 +3,7 @@ import React from "react";
 const LandingPage = () => {
   return (
     <>
-      <section className="w-full px-8 text-gray-700  dark:bg-slate-900 -mb-14">
-        <div className="container flex flex-row flex-wrap items-center justify-center py-5 mx-auto md:flex-row max-w-7xl">
-          <div className="relative flex flex-row md:flex-row justify-center">
-            <a
-              href="#"
-              className="flex items-center mb-5 font-medium text-gray-900 lg:w-auto lg:items-center lg:justify-center md:mb-0 mr-4"
-            >
-              <img src="https://i.postimg.cc/13JnbbKX/ggf-high-resolution-logo-transparent.png" width="60" height="60"/>
-            </a>
-            <nav className="flex flex-wrap items-center mb-5 text-base md:mb-0 md:pl-8 md:ml-8 md:border-l md:border-gray-200">
-              <a
-                href="#_"
-                className="mr-5 font-medium leading-6 text-gray-300 hover:text-gray-100"
-              >
-                Home
-              </a>
-              <a
-                href="#_"
-                className="mr-5 font-medium leading-6 text-gray-300 hover:text-gray-100"
-              >
-                Repos
-              </a>
-            </nav>
-          </div>
-        </div>
-      </section>
-
-      <section className="px-2 py-32  dark:bg-slate-900  md:px-0">
+      <section className="px-2 py-32  dark:bg-slate-900  md:px-0 lg:mt-20">
         <div className="container items-center max-w-6xl px-8 mx-auto xl:px-5">
           <div className="flex flex-wrap items-center sm:-mx-3">
             <div className="w-full md:w-1/2 md:px-3">
