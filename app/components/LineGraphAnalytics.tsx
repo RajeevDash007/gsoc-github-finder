@@ -149,14 +149,14 @@ const LineGraphAnalytics = ({
           <LineChart
             width={
               window.innerWidth < 768
-                ? window.innerWidth - 10
+                ? window.innerWidth - 80
                 : window.innerWidth < 1024
                 ? window.innerWidth - 100
                 : 800
             }
             height={400}
             data={data}
-            margin={{ top: 20, right: 50, left: 20, bottom: 20 }}
+            margin={{ top: 20, right: 50, left: 5, bottom: 20 }}
           >
             <CartesianGrid
               strokeDasharray="3 3"
