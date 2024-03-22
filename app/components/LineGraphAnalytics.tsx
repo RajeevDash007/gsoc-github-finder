@@ -36,8 +36,11 @@ const LineGraphAnalytics = ({
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
-    setWidth(window.innerWidth);
+    if (typeof window !== 'undefined') {
+      setWidth(window.innerWidth);
+    }
   }, []);
+  
   const defaultTechnology = getAllTechnologies()[0] || null;
   const [selectedTechnology, setSelectedTechnology] = useState<string | null>(
     defaultTechnology

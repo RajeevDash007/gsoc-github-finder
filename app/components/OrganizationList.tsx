@@ -13,7 +13,9 @@ import ReactPaginate from "react-paginate";
 import Select, { ActionMeta, MultiValue } from "react-select";
 import Fuse from "fuse.js";
 import MostListed from "./MostListed";
-import LineGraphAnalytics from "./LineGraphAnalytics";
+import dynamic from 'next/dynamic';
+
+const LineGraphAnalytics = dynamic(() => import('./LineGraphAnalytics'), { ssr: false });
 
 type OptionType = {
   value: string;
@@ -250,7 +252,7 @@ const OrganizationList = () => {
       <div className="flex justify-center">
         <MostListed organizationData={organizationData} />
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center"> 
         <LineGraphAnalytics organizationData={organizationData} />
       </div>
     </div>
