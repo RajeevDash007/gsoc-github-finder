@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import {
   LineChart,
   Line,
@@ -32,6 +33,11 @@ const LineGraphAnalytics = ({
       .slice(0, showAllTechnologies ? 50 : 10)
       .map(([tech]) => tech);
   };
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    setWidth(window.innerWidth);
+  }, []);
   const defaultTechnology = getAllTechnologies()[0] || null;
   const [selectedTechnology, setSelectedTechnology] = useState<string | null>(
     defaultTechnology
