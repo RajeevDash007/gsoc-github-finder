@@ -13,7 +13,7 @@ import ReactPaginate from "react-paginate";
 import Select, { ActionMeta, MultiValue } from "react-select";
 import Fuse from "fuse.js";
 import MostListed from "./MostListed";
-import LineGraphAnalytics from './LineGraphAnalytics';
+import LineGraphAnalytics from "./LineGraphAnalytics";
 
 type OptionType = {
   value: string;
@@ -215,7 +215,7 @@ const OrganizationList = () => {
             </div>
             <div className="flex justify-center">
               <a
-                href={'guide_url' in org ? org.guide_url as string : org.url}
+                href={"guide_url" in org ? (org.guide_url as string) : org.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -251,7 +251,7 @@ const OrganizationList = () => {
         <MostListed organizationData={organizationData} />
       </div>
       <div className="flex justify-center">
-      <LineGraphAnalytics organizationData={organizationData} />
+        <LineGraphAnalytics organizationData={organizationData} />
       </div>
     </div>
   );
