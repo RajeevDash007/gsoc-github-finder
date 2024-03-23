@@ -12,6 +12,7 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.15.12",
+    "@tabler/icons-react": "^3.1.0",
     "@types/lodash": "^4.17.0",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.20",
