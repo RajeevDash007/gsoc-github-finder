@@ -39,6 +39,10 @@ export const FloatingNav = ({
         }
       }
     }
+
+    const handleSignOut = () => {
+      window.location.reload();
+    };
   });
 
   return (
@@ -78,7 +82,7 @@ export const FloatingNav = ({
         <div className="flex items-center space-x-4">
           {/* Profile image */}
           <SignedIn>
-            <UserButton />
+            <UserButton afterSignOutUrl="/"/>
           </SignedIn>
           {/* Login image */}
           <SignedOut>
