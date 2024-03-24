@@ -3,7 +3,7 @@ import React from "react";
 const LandingPage = () => {
   return (
     <>
-      <section className="px-2 py-32  dark:bg-slate-900  md:px-0 lg:mt-10">
+      <section className="px-2 py-32  md:px-0 lg:mt-10">
         <div className="container items-center max-w-6xl px-8 mx-auto xl:px-5">
           <div className="flex flex-wrap items-center sm:-mx-3">
             <div className="w-full md:w-1/2 md:px-3">
