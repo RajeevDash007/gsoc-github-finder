@@ -144,7 +144,7 @@ const OrganizationList = () => {
       className="antialiased text-slate-300 dark:text-slate-200 pt-10"
       id="explore-projects"
     >
-      <div className="flex justify-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-10">
+      <div className="flex justify-center text-4xl sm:text-4xl md:text-5xl lg:text-6xl mb-10">
         <h1>Find Projects</h1>
       </div>
       <div className="flex flex-col md:flex-row justify-center gap-4 mb-10 px-20">
@@ -189,7 +189,7 @@ const OrganizationList = () => {
         {displayedOrganizations.map((org) => (
           <div
             key={org.name}
-            className="group relative rounded-xl bg-slate-800/80 dark:bg-slate-700/80 p-6 hover:scale-105"
+            className="group relative rounded-xl bg-black p-6 border-4 hover:scale-105 border-white shadow-lg shadow-white"
           >
             <div className="aspect-[672/494] relative rounded-md transform overflow-hidden shadow-[0_2px_8px_rgba(15,23,42,0.08)] bg-slate-700 dark:bg-slate-600">
               <img
