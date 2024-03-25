@@ -72,8 +72,8 @@ const MostListed: React.FC<Props> = ({ organizationData }) => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className="most-listed-companies-section bg-white rounded-lg overflow-hidden my-8 w-5/6 shadow-2xl shadow-blue-500/50">
-      <h2 className="text-2xl font-semibold text-gray-800 py-5 px-6 flex justify-between items-center">
+    <div className="most-listed-companies-section bg-black rounded-lg overflow-hidden my-8 w-5/6 shadow-2xl shadow-white border-4 border-white">
+      <h2 className="text-2xl font-semibold text-white py-5 px-6 flex justify-between items-center">
         Most Listed Organizations
         <input
           type="text"
@@ -88,16 +88,16 @@ const MostListed: React.FC<Props> = ({ organizationData }) => {
         <table className="min-w-full leading-normal">
           <thead>
             <tr>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-4 border-white  text-left text-xs font-semibold text-white uppercase tracking-wider">
                 Sl No.
               </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-4 border-white  text-left text-xs font-semibold text-white uppercase tracking-wider">
                 Organization Name
               </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-4 border-white  text-left text-xs font-semibold text-white uppercase tracking-wider">
                 Listed Years
               </th>
-              <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+              <th className="px-5 py-3 border-b-4 border-white  text-left text-xs font-semibold text-white uppercase tracking-wider">
                 URL
               </th>
             </tr>
@@ -109,17 +109,17 @@ const MostListed: React.FC<Props> = ({ organizationData }) => {
                 currentPage * companiesPerPage
               )
               .map((company, index) => (
-                <tr key={index} className="hover:bg-gray-100">
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-red-400">
+                <tr key={index} className="hover:bg-gray-900">
+                  <td className="px-5 py-5 border-b border-gray-200  text-sm text-red-400">
                     {(currentPage - 1) * companiesPerPage + index + 1}
                   </td>
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-black">
+                  <td className="px-5 py-5 border-b border-gray-200  text-sm text-white">
                     {company.name}
                   </td>
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-green-600">
+                  <td className="px-5 py-5 border-b border-gray-200  text-sm text-green-600">
                     {company.years}
                   </td>
-                  <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                  <td className="px-5 py-5 border-b border-gray-200  text-sm">
                     <a
                       href={company.url}
                       target="_blank"

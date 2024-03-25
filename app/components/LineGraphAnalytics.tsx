@@ -140,9 +140,9 @@ const LineGraphAnalytics = ({
           display: "flex",
           justifyContent: "center",
           padding: "1rem",
-          backgroundColor: "#1f2937",
+          backgroundColor: "#131517",
           borderRadius: "0.5rem",
-          boxShadow: "0px 4px 12px rgba(141, 139, 139, 0.1)",
+          boxShadow: "0px 4px 12px rgba(255, 252, 252, 0.867)",
         }}
       >
         <div style={{ width: "100%", maxWidth: "800px" }}>
@@ -161,9 +161,9 @@ const LineGraphAnalytics = ({
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}
-              stroke="#52606D"
+              stroke="#eef1f4"
             />
-            <XAxis dataKey="year" tick={{ fill: "#9CA3AF" }} />
+            <XAxis dataKey="year" tick={{ fill: "#9CA3AF",color: "white" }} />
             <YAxis tick={{ fill: "#9CA3AF" }} />
             <Tooltip
               cursor={{ stroke: "red", strokeWidth: 2 }}
@@ -180,7 +180,7 @@ const LineGraphAnalytics = ({
                 dataKey={selectedTechnology}
                 stroke={getRandomColor()}
                 strokeWidth={2}
-                dot={{ stroke: "#F3F4F6", strokeWidth: 2, fill: "#1f2937" }}
+                dot={{ stroke: "#F3F4F6", strokeWidth: 5, fill: "#1f2937" }}
               />
             )}
           </LineChart>
