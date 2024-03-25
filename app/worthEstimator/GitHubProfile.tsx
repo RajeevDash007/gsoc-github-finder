@@ -103,15 +103,59 @@ const GitHubProfile: React.FC = () => {
                 $ {calculatePoints()}
               </p>
             </div>
-            <ul>
-              <li className="mb-2">
-                Public Repositories: {userData.publicRepos}
-              </li>
-              <li className="mb-2">Commit Count: {userData.commitCount}</li>
-              <li className="mb-2">PR Count: {userData.prCount}</li>
-              <li className="mb-2">Followers: {userData.followers}</li>
-              <li className="mb-2">Followings: {userData.following}</li>
-            </ul>
+
+            <div className="p-4 flex flex-col lg:grid lg:grid-cols-2 gap-4 text-sm">
+              <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+                <div className="flex-col space-y-1.5 p-2 grid gap-1.5 items-center text-xs">
+                  <h3 className="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight text-yellow-400">
+                    Public Repositories
+                  </h3>
+                  <p className="text-lg text-muted-foreground">
+                    {userData.publicRepos}
+                  </p>
+                </div>
+              </div>
+              <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+                <div className="flex-col space-y-1.5 p-2 grid gap-1.5 items-center text-xs">
+                  <h3 className="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight text-yellow-400">
+                    Commit Count
+                  </h3>
+                  <p className="text-lg text-muted-foreground">
+                    {userData.commitCount}
+                  </p>
+                </div>
+              </div>
+              <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+                <div className="flex-col space-y-1.5 p-2 grid gap-1.5 items-center text-xs">
+                  <h3 className="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight text-yellow-400">
+                    PR Count
+                  </h3>
+                  <p className="text-lg text-muted-foreground">
+                    {userData.prCount}
+                  </p>
+                </div>
+              </div>
+              <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+                <div className="flex-col space-y-1.5 p-2 grid gap-1.5 items-center text-xs">
+                  <h3 className="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight text-yellow-400">
+                    Followers
+                  </h3>
+                  <p className="text-lg text-muted-foreground">
+                    {userData.followers}
+                  </p>
+                </div>
+              </div>
+              <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+                <div className="flex-col space-y-1.5 p-2 grid gap-1.5 items-center text-xs">
+                  <h3 className="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight text-yellow-400">
+                    Followings
+                  </h3>
+                  <p className="text-lg text-muted-foreground">
+                    {userData.following}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
