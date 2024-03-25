@@ -61,11 +61,11 @@ const GitHubProfile: React.FC = () => {
 
   const calculatePoints = () => {
     const points = {
-      publicRepos: userData.publicRepos ? userData.publicRepos * 200 : 0,
+      publicRepos: userData.publicRepos ? userData.publicRepos * 100 : 0,
       commitCount: userData.commitCount ? userData.commitCount * 500 : 0,
       prCount: userData.prCount ? userData.prCount * 2000 : 0,
-      followers: userData.followers ? userData.followers * 150 : 0,
-      following: userData.following ? userData.following * 100 : 0,
+      followers: userData.followers ? userData.followers * 50 : 0,
+      following: userData.following ? userData.following * 20 : 0,
     };
 
     return Object.values(points).reduce((acc, curr) => acc + curr, 0);
