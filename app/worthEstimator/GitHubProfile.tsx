@@ -11,6 +11,7 @@ interface UserData {
   publicRepos?: number;
   commitCount?: number;
   prCount?: number;
+  issueCount?: number;
 }
 
 const GitHubProfile: React.FC = () => {
@@ -28,7 +29,7 @@ const GitHubProfile: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const [resCommits, resIssues, resUser] = await Promise.all([
+      const [resCommits, resPr, resUser, resIssue] = await Promise.all([
         axios.get(
           `https://api.github.com/search/commits?q=author:"${username}"`
         ),
@@ -36,11 +37,13 @@ const GitHubProfile: React.FC = () => {
           `https://api.github.com/search/issues?q=author:%22${username}%22+is:pr`
         ),
         axios.get(`https://api.github.com/users/${username}`),
+        axios.get(`https://api.github.com/search/issues?q=author:%22${username}%22+is:issue`),
       ]);
 
       const userDetails = resUser.data;
       const commitCount = resCommits.data.total_count;
-      const prCount = resIssues.data.total_count;
+      const prCount = resPr.data.total_count;
+      const issueCount = resIssue.data.total_count;
 
       setUserData({
         name: userDetails.name,
@@ -51,6 +54,7 @@ const GitHubProfile: React.FC = () => {
         publicRepos: userDetails.public_repos,
         commitCount: commitCount,
         prCount: prCount,
+        issueCount: issueCount,
       });
     } catch (error) {
       alert("Invalid GitHub username. Please check again.");
@@ -61,11 +65,12 @@ const GitHubProfile: React.FC = () => {
 
   const calculatePoints = () => {
     const points = {
-      publicRepos: userData.publicRepos ? userData.publicRepos * 100 : 0,
+      publicRepos: userData.publicRepos ? userData.publicRepos * 70 : 0,
       commitCount: userData.commitCount ? userData.commitCount * 500 : 0,
       prCount: userData.prCount ? userData.prCount * 2000 : 0,
       followers: userData.followers ? userData.followers * 50 : 0,
       following: userData.following ? userData.following * 20 : 0,
+      issueCount: userData.following ? userData.following * 1000 : 0,
     };
 
     return Object.values(points).reduce((acc, curr) => acc + curr, 0);
@@ -122,6 +127,16 @@ const GitHubProfile: React.FC = () => {
                   </h3>
                   <p className="text-lg text-muted-foreground">
                     {userData.commitCount}
+                  </p>
+                </div>
+              </div>
+              <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+                <div className="flex-col space-y-1.5 p-2 grid gap-1.5 items-center text-xs">
+                  <h3 className="text-2xl font-semibold whitespace-nowrap leading-none tracking-tight text-yellow-400">
+                    Issues Found
+                  </h3>
+                  <p className="text-lg text-muted-foreground">
+                    {userData.issueCount}
                   </p>
                 </div>
               </div>
