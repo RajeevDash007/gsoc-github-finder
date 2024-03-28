@@ -21,9 +21,6 @@ const UserSchema = new Schema({
     required: true,
     unique: true,
   },
-  skills: {
-    type: Array,
-  },
 });
 
 const User = models?.User || model("User", UserSchema);
