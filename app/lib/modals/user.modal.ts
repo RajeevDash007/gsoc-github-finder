@@ -23,8 +23,6 @@ const UserSchema = new Schema({
   },
   skills: {
     type: Array,
-    required: true,
-    unique: true,
   },
 });
 
