@@ -97,8 +97,8 @@ const LineGraphAnalytics = ({
 
   return (
     <div className="flex flex-col items-center justify-center mt-10 lg:mt-20 mb-20">
-      <h1 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-        <span className="text-blue-600 dark:text-blue-500">Top 50</span>{" "}
+      <h1 className="mb-4 text-3xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xltext-white">
+        <span className=" dark:text-blue-500">Top 50</span>{" "}
         Technologies Trend
       </h1>
       <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-10 justify-center mb-4 gap-2 w-11/12">
